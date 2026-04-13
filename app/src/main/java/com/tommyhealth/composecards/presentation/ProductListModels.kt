@@ -1,24 +1,26 @@
 package com.tommyhealth.composecards.presentation
 
-import androidx.annotation.StringRes
-import com.tommyhealth.composecards.R
+import androidx.annotation.DrawableRes
+import androidx.compose.ui.graphics.Color
+import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.persistentListOf
 
 data class ProductListUiState(
-    val products: List<ProductUi> = emptyList(),
+    val products: ImmutableList<ProductUi> = persistentListOf(),
     val displayMode: DisplayMode = DisplayMode.LIST,
 )
 
 data class ProductUi(
     val id: String,
-    val image: String,
+    val imageUrl: String,
     val title: String,
     val rating: RatingUi,
     val reliability: ReliabilityUi,
-    @StringRes val bestsellerBadge: Int?,
+    val badge: BadgeUi?,
     val isFavorite: Boolean,
     val isCompared: Boolean,
     val price: PriceUi,
-    val availabilityBlocks: List<AvailabilityBlockUi>,
+    val availabilityBlocks: ImmutableList<AvailabilityBlockUi>,
     val isAvailable: Boolean,
 )
 
@@ -28,8 +30,8 @@ data class RatingUi(
 )
 
 data class PriceUi(
-    val current: String,
-    val old: String?,
+    val price: String,
+    val oldPrice: String?,
     val installment: String?,
 )
 
@@ -38,12 +40,16 @@ data class AvailabilityBlockUi(
     val subtitle: String,
 )
 
-enum class ReliabilityUi(@StringRes val text: Int) {
-    EXCELLENT(R.string.reliability_excellent),
-    GOOD(R.string.reliability_good),
-    AVERAGE(R.string.reliability_average),
-    POOR(R.string.reliability_poor),
-}
+data class ReliabilityUi(
+    val title: String,
+    @DrawableRes val iconRes: Int,
+    val iconTint: Color,
+)
+
+data class BadgeUi(
+    val title: String,
+    val backgroundColor: Color,
+)
 
 enum class DisplayMode {
     LIST,
