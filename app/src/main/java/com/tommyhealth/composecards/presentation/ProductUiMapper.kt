@@ -6,6 +6,7 @@ import com.tommyhealth.composecards.domain.Pricing
 import com.tommyhealth.composecards.domain.ProductItem
 import com.tommyhealth.composecards.domain.Rating
 import com.tommyhealth.composecards.domain.ReliabilityLevel
+import kotlinx.collections.immutable.toImmutableList
 
 fun ProductItem.toUi(): ProductUi = ProductUi(
     id = id,
@@ -17,7 +18,7 @@ fun ProductItem.toUi(): ProductUi = ProductUi(
     isFavorite = isFavorite,
     isCompared = false,
     price = price.toUi(),
-    availabilityBlocks = availabilityBlock.map { it.toUi() },
+    availabilityBlocks = availabilityBlock.map { it.toUi() }.toImmutableList(),
     isAvailable = isAvailable,
 )
 
