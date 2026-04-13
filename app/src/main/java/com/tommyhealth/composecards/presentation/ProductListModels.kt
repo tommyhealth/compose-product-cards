@@ -2,9 +2,11 @@ package com.tommyhealth.composecards.presentation
 
 import androidx.annotation.StringRes
 import com.tommyhealth.composecards.R
+import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.persistentListOf
 
 data class ProductListUiState(
-    val products: List<ProductUi> = emptyList(),
+    val products: ImmutableList<ProductUi> = persistentListOf(),
     val displayMode: DisplayMode = DisplayMode.LIST,
 )
 
@@ -18,7 +20,7 @@ data class ProductUi(
     val isFavorite: Boolean,
     val isCompared: Boolean,
     val price: PriceUi,
-    val availabilityBlocks: List<AvailabilityBlockUi>,
+    val availabilityBlocks: ImmutableList<AvailabilityBlockUi>,
     val isAvailable: Boolean,
 )
 
