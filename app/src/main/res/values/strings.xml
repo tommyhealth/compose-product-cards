@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">ComposeProductCards</string>
+
+    <string name="product_badge_bestseller">Хит продаж</string>
+
+    <string name="reliability_excellent">Отличная надёжность</string>
+    <string name="reliability_good">Хорошая надёжность</string>
+    <string name="reliability_average">Средняя надёжность</string>
+    <string name="reliability_poor">Низкая надёжность</string>
+
 </resources>
