@@ -10,63 +10,76 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Check
+import androidx.compose.material.icons.filled.Star
+import androidx.compose.material.icons.filled.StarBorder
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.drawWithContent
+import androidx.compose.ui.graphics.drawscope.clipRect
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.res.stringResource
 import android.content.res.Configuration
 import androidx.compose.foundation.background
-import com.tommyhealth.composecards.R
+import androidx.compose.ui.draw.clip
+import com.tommyhealth.composecards.ui.theme.Average
 import com.tommyhealth.composecards.ui.theme.ComposeProductCardsTheme
 
+private const val STARS_COUNT = 5
+
 @Composable
-fun CompareCheckbox(
-    checked: Boolean,
-    onCheckedChange: () -> Unit,
+fun RatingChip(
+    rating: Float,
+    reviewCount: String,
+    onClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
         modifier = modifier
             .clip(RoundedCornerShape(6.dp))
-            .clickable(onClick = onCheckedChange, role = Role.Checkbox)
+            .clickable(onClick = onClick, role = Role.Button)
             .border(
                 width = 0.7.dp,
                 color = MaterialTheme.colorScheme.outlineVariant,
-                shape = RoundedCornerShape(6.dp)
+                shape =RoundedCornerShape(6.dp)
             )
             .background(color = MaterialTheme.colorScheme.background)
             .padding(horizontal = 4.dp, vertical = 5.dp)
     ) {
-        Box(
-            contentAlignment = Alignment.Center,
-            modifier = Modifier
-                .size(14.dp)
-                .border(
-                    width = 0.7.dp,
-                    color = MaterialTheme.colorScheme.outline,
-                    shape = RoundedCornerShape(4.dp)
-                ),
-        ) {
-            if (checked) {
+        repeat(STARS_COUNT) { index ->
+            val fill = (rating - index).coerceIn(0f, 1f)
+
+            Box {
                 Icon(
-                    imageVector = Icons.Filled.Check,
+                    imageVector = Icons.Default.StarBorder,
                     contentDescription = null,
-                    tint = MaterialTheme.colorScheme.onBackground,
+                    tint = Average,
+                    modifier = Modifier.size(16.dp),
                 )
+                if (fill > 0f) {
+                    Icon(
+                        imageVector = Icons.Default.Star,
+                        contentDescription = null,
+                        tint = Average,
+                        modifier = Modifier
+                            .size(16.dp)
+                            .drawWithContent {
+                                clipRect(right = this.size.width * fill) {
+                                    this@drawWithContent.drawContent()
+                                }
+                            }
+                    )
+                }
             }
         }
         Spacer(Modifier.width(4.dp))
         Text(
-            text = stringResource(R.string.compare),
+            text = reviewCount,
             style = MaterialTheme.typography.bodySmall,
             color = MaterialTheme.colorScheme.onBackground,
         )
@@ -75,24 +88,24 @@ fun CompareCheckbox(
 
 @Preview(showBackground = true)
 @Composable
-private fun CompareCheckboxUncheckedPreview() {
+private fun RatingChipPreview() {
     ComposeProductCardsTheme {
-        CompareCheckbox(checked = false, onCheckedChange = {})
+        RatingChip(
+            rating = 3.4f,
+            reviewCount = "22",
+            onClick = {}
+        )
     }
 }
 
-@Preview(showBackground = true)
+@Preview(uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
-private fun CompareCheckboxCheckedPreview() {
+private fun RatingChipDarkPreview() {
     ComposeProductCardsTheme {
-        CompareCheckbox(checked = true, onCheckedChange = {})
-    }
-}
-
-@Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
-@Composable
-private fun CompareCheckboxDarkPreview() {
-    ComposeProductCardsTheme {
-        CompareCheckbox(checked = true, onCheckedChange = {})
+        RatingChip(
+            rating = 3.4f,
+            reviewCount = "22",
+            onClick = {}
+        )
     }
 }

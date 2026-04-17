@@ -10,12 +10,19 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import android.content.res.Configuration
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.height
+import com.tommyhealth.composecards.presentation.ProductUi
+import com.tommyhealth.composecards.presentation.products
 import com.tommyhealth.composecards.ui.theme.ComposeProductCardsTheme
 
 @Composable
 fun ProductCard(
-    title: String,
-    imageUrl: String,
+    product: ProductUi,
+    onCompareChange: () -> Unit,
+    onRatingClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Box(
@@ -27,20 +34,44 @@ fun ProductCard(
                 shape = RoundedCornerShape(8.dp)
             )
     ) {
-        ProductHeader(
-            title = title,
-            imageUrl = imageUrl
-        )
+        Column(modifier = Modifier.padding(12.dp)) {
+            ProductHeader(
+                imageUrl = product.imageUrl,
+                title = product.title,
+                badge = product.badge,
+            )
+            Spacer(Modifier.height(12.dp))
+            ProductChipRow(
+                isCompared = product.isCompared,
+                rating = product.rating,
+                reliability = product.reliability,
+                onCheckedChange = onCompareChange,
+                onRatingClick = onRatingClick,
+            )
+        }
     }
 }
 
 @Preview
 @Composable
 private fun ProductCardPreview() {
-    ComposeProductCardsTheme(darkTheme = false) {
+    ComposeProductCardsTheme {
         ProductCard(
-            title = "6.67\" Смартфон Xiaomi Redmi Note 14 128 ГБ черный",
-            imageUrl = "",
+            product = products[0],
+            onCompareChange = {},
+            onRatingClick = {},
+        )
+    }
+}
+
+@Preview(uiMode = Configuration.UI_MODE_NIGHT_YES)
+@Composable
+private fun ProductCardDarkPreview() {
+    ComposeProductCardsTheme {
+        ProductCard(
+            product = products[1],
+            onCompareChange = {},
+            onRatingClick = {},
         )
     }
 }
