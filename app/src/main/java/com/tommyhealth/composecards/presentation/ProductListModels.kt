@@ -48,7 +48,7 @@ data class ReliabilityUi(
 
 data class BadgeUi(
     val title: String,
-    val backgroundColor: Color,
+    val color: Color,
 )
 
 enum class DisplayMode {

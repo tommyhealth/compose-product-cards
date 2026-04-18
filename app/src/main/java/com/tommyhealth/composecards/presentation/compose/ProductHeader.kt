@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -14,6 +15,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.painter.ColorPainter
 import androidx.compose.ui.tooling.preview.Preview
@@ -25,7 +27,6 @@ import com.tommyhealth.composecards.ui.theme.ComposeProductCardsTheme
 
 private val ImageWidth = 100.dp
 private const val ImageAspectRatio = 0.75f
-private val ImageHeight = (ImageWidth.value / ImageAspectRatio).dp
 
 @Composable
 fun ProductHeader(
@@ -34,7 +35,11 @@ fun ProductHeader(
     badge: BadgeUi?,
     modifier: Modifier = Modifier
 ) {
-    Row(modifier = modifier.fillMaxWidth()) {
+    Row(
+        modifier = modifier
+            .fillMaxWidth()
+            .height(IntrinsicSize.Min)
+    ) {
         AsyncImage(
             model = imageUrl,
             contentDescription = title,
@@ -46,7 +51,7 @@ fun ProductHeader(
                 .clip(RoundedCornerShape(8.dp)),
         )
         Spacer(modifier = Modifier.width(8.dp))
-        Column(modifier = Modifier.height(ImageHeight)) {
+        Column(modifier = Modifier.fillMaxHeight()) {
             Text(
                 text = title,
                 color = MaterialTheme.colorScheme.onBackground
@@ -55,7 +60,8 @@ fun ProductHeader(
                 Spacer(Modifier.weight(1f))
                 HintLabel(
                     text = it.title,
-                    backgroundColor = it.backgroundColor,
+                    textColor = it.color,
+                    backgroundColor = it.color.copy(alpha = 0.25f),
                     modifier = Modifier.padding(bottom = 2.dp),
                 )
             }

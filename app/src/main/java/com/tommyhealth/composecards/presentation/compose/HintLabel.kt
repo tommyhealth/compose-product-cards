@@ -18,16 +18,17 @@ import com.tommyhealth.composecards.ui.theme.Excellent
 @Composable
 fun HintLabel(
     text: String,
+    textColor: Color,
     backgroundColor: Color,
     modifier: Modifier = Modifier,
 ) {
     Text(
         text = text,
         style = MaterialTheme.typography.bodySmall,
-        color = backgroundColor,
+        color = textColor,
         modifier = modifier
             .clip(RoundedCornerShape(4.dp))
-            .background(backgroundColor.copy(alpha = 0.25f))
+            .background(backgroundColor)
             .padding(horizontal = 6.dp, vertical = 2.dp),
     )
 }
@@ -36,7 +37,11 @@ fun HintLabel(
 @Composable
 private fun HintLabelPreview() {
     ComposeProductCardsTheme {
-        HintLabel(text = "Хит продаж", backgroundColor = Excellent)
+        HintLabel(
+            text = "Хит продаж",
+            textColor = Excellent,
+            backgroundColor = Excellent.copy(alpha = 0.25f),
+        )
     }
 }
 
@@ -44,6 +49,10 @@ private fun HintLabelPreview() {
 @Composable
 private fun HintLabelDarkPreview() {
     ComposeProductCardsTheme {
-        HintLabel(text = "Хит продаж", backgroundColor = Excellent)
+        HintLabel(
+            text = "Хит продаж",
+            textColor = Excellent,
+            backgroundColor = Excellent.copy(alpha = 0.25f),
+        )
     }
 }

@@ -1,47 +1,36 @@
 package com.tommyhealth.composecards.presentation.compose
 
 import android.content.res.Configuration
-import androidx.compose.foundation.background
-import androidx.compose.foundation.border
+import androidx.annotation.DrawableRes
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.tommyhealth.composecards.R
+import com.tommyhealth.composecards.presentation.utils.chipStyle
 import com.tommyhealth.composecards.ui.theme.ComposeProductCardsTheme
 import com.tommyhealth.composecards.ui.theme.Poor
 
 @Composable
 fun ReliabilityChip(
     title: String,
-    icon: Int,
+    @DrawableRes icon: Int,
     tint: Color,
     modifier: Modifier = Modifier,
 ) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
-        modifier = modifier
-            .clip(shape = RoundedCornerShape(6.dp))
-            .border(
-                width = 0.7.dp,
-                color = MaterialTheme.colorScheme.outlineVariant,
-                shape = RoundedCornerShape(6.dp)
-            )
-            .background(color = MaterialTheme.colorScheme.background)
-            .padding(horizontal = 4.dp, vertical = 5.dp)
+        modifier = modifier.chipStyle()
     ) {
         Icon(
             painter = painterResource(icon),

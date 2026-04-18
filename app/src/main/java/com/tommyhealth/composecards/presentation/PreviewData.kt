@@ -43,7 +43,7 @@ val products: List<ProductUi> = listOf(
             iconRes = R.drawable.ic_check,
             iconTint = Excellent,
         ),
-        badge = BadgeUi(title = "Хит продаж", backgroundColor = Excellent),
+        badge = BadgeUi(title = "Хит продаж", color = Excellent),
         isFavorite = false,
         isCompared = false,
         price = PriceUi(
@@ -118,7 +118,7 @@ val products: List<ProductUi> = listOf(
             iconRes = R.drawable.ic_check,
             iconTint = Average,
         ),
-        badge = BadgeUi(title = "Хит продаж", backgroundColor = Excellent),
+        badge = BadgeUi(title = "Хит продаж", color = Excellent),
         isFavorite = false,
         isCompared = false,
         price = PriceUi(
