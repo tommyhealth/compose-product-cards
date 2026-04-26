@@ -2,8 +2,10 @@ package com.tommyhealth.composecards.presentation
 
 import com.tommyhealth.composecards.R
 import com.tommyhealth.composecards.ui.theme.Average
+import com.tommyhealth.composecards.ui.theme.Complements
 import com.tommyhealth.composecards.ui.theme.Excellent
 import com.tommyhealth.composecards.ui.theme.Good
+import com.tommyhealth.composecards.ui.theme.Installment
 import com.tommyhealth.composecards.ui.theme.Poor
 import kotlinx.collections.immutable.persistentListOf
 
@@ -18,7 +20,9 @@ val products: List<ProductUi> = listOf(
             iconRes = R.drawable.ic_check,
             iconTint = Excellent,
         ),
-        badge = null,
+        badges = persistentListOf(
+            BadgeUi(title = "Рассрочка 0-0-12", color = Installment),
+        ),
         isFavorite = false,
         isCompared = false,
         price = PriceUi(
@@ -43,7 +47,10 @@ val products: List<ProductUi> = listOf(
             iconRes = R.drawable.ic_check,
             iconTint = Excellent,
         ),
-        badge = BadgeUi(title = "Хит продаж", backgroundColor = Excellent),
+        badges = persistentListOf(
+            BadgeUi(title = "Хит продаж", color = Excellent),
+            BadgeUi(title = "Выгодные комплекты", color = Complements),
+        ),
         isFavorite = false,
         isCompared = false,
         price = PriceUi(
@@ -68,7 +75,7 @@ val products: List<ProductUi> = listOf(
             iconRes = R.drawable.ic_check,
             iconTint = Good,
         ),
-        badge = null,
+        badges = persistentListOf(),
         isFavorite = true,
         isCompared = false,
         price = PriceUi(
@@ -93,7 +100,10 @@ val products: List<ProductUi> = listOf(
             iconRes = R.drawable.ic_check,
             iconTint = Good,
         ),
-        badge = null,
+        badges = persistentListOf(
+            BadgeUi(title = "Выгода 3 000 ₽", color = Installment),
+            BadgeUi(title = "Выгодные комплекты", color = Complements),
+        ),
         isFavorite = false,
         isCompared = false,
         price = PriceUi(
@@ -118,7 +128,10 @@ val products: List<ProductUi> = listOf(
             iconRes = R.drawable.ic_check,
             iconTint = Average,
         ),
-        badge = BadgeUi(title = "Хит продаж", backgroundColor = Excellent),
+        badges = persistentListOf(
+            BadgeUi(title = "Хит продаж", color = Excellent),
+            BadgeUi(title = "Рассрочка 0-0-12", color = Installment),
+        ),
         isFavorite = false,
         isCompared = false,
         price = PriceUi(
@@ -143,7 +156,7 @@ val products: List<ProductUi> = listOf(
             iconRes = R.drawable.ic_check,
             iconTint = Poor,
         ),
-        badge = null,
+        badges = persistentListOf(),
         isFavorite = false,
         isCompared = false,
         price = PriceUi(

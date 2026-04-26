@@ -14,11 +14,11 @@ data class ProductUi(
     val id: String,
     val imageUrl: String,
     val title: String,
-    val rating: RatingUi,
-    val reliability: ReliabilityUi,
-    val badge: BadgeUi?,
+    val rating: RatingUi? = null,
+    val reliability: ReliabilityUi? = null,
+    val badges: ImmutableList<BadgeUi>,
     val isFavorite: Boolean,
-    val isCompared: Boolean,
+    val isCompared: Boolean = false,
     val price: PriceUi,
     val availabilityBlocks: ImmutableList<AvailabilityBlockUi>,
     val isAvailable: Boolean,
@@ -48,7 +48,7 @@ data class ReliabilityUi(
 
 data class BadgeUi(
     val title: String,
-    val backgroundColor: Color,
+    val color: Color,
 )
 
 enum class DisplayMode {
