@@ -9,26 +9,24 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.tommyhealth.composecards.presentation.BadgeUi
 import com.tommyhealth.composecards.ui.theme.ComposeProductCardsTheme
 import com.tommyhealth.composecards.ui.theme.Excellent
 
 @Composable
 fun HintLabel(
-    text: String,
-    textColor: Color,
-    backgroundColor: Color,
+    badge: BadgeUi,
     modifier: Modifier = Modifier,
 ) {
     Text(
-        text = text,
+        text = badge.title,
         style = MaterialTheme.typography.bodySmall,
-        color = textColor,
+        color = badge.color,
         modifier = modifier
             .clip(RoundedCornerShape(4.dp))
-            .background(backgroundColor)
+            .background(badge.color.copy(alpha = 0.25f))
             .padding(horizontal = 6.dp, vertical = 2.dp),
     )
 }
@@ -38,9 +36,7 @@ fun HintLabel(
 private fun HintLabelPreview() {
     ComposeProductCardsTheme {
         HintLabel(
-            text = "Хит продаж",
-            textColor = Excellent,
-            backgroundColor = Excellent.copy(alpha = 0.25f),
+            badge = BadgeUi(title = "Хит продаж", color = Excellent),
         )
     }
 }
@@ -50,9 +46,7 @@ private fun HintLabelPreview() {
 private fun HintLabelDarkPreview() {
     ComposeProductCardsTheme {
         HintLabel(
-            text = "Хит продаж",
-            textColor = Excellent,
-            backgroundColor = Excellent.copy(alpha = 0.25f),
+            badge = BadgeUi(title = "Хит продаж", color = Excellent),
         )
     }
 }

@@ -20,6 +20,7 @@ import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import android.content.res.Configuration
+import com.tommyhealth.composecards.presentation.RatingUi
 import com.tommyhealth.composecards.presentation.utils.chipStyle
 import com.tommyhealth.composecards.ui.theme.Average
 import com.tommyhealth.composecards.ui.theme.ComposeProductCardsTheme
@@ -28,8 +29,7 @@ private const val STARS_COUNT = 5
 
 @Composable
 fun RatingChip(
-    rating: Float,
-    reviewCount: String,
+    rating: RatingUi,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
@@ -38,7 +38,7 @@ fun RatingChip(
         modifier = modifier.chipStyle(onClick = onClick, role = Role.Button)
     ) {
         repeat(STARS_COUNT) { index ->
-            val fill = (rating - index).coerceIn(0f, 1f)
+            val fill = (rating.score - index).coerceIn(0f, 1f)
 
             Box {
                 Icon(
@@ -65,7 +65,7 @@ fun RatingChip(
         }
         Spacer(Modifier.width(4.dp))
         Text(
-            text = reviewCount,
+            text = rating.reviewCount,
             style = MaterialTheme.typography.bodySmall,
             color = MaterialTheme.colorScheme.onBackground,
         )
@@ -77,8 +77,10 @@ fun RatingChip(
 private fun RatingChipPreview() {
     ComposeProductCardsTheme {
         RatingChip(
-            rating = 3.4f,
-            reviewCount = "22",
+            rating = RatingUi(
+                score = 3.4f,
+                reviewCount = "22",
+            ),
             onClick = {}
         )
     }
@@ -89,8 +91,10 @@ private fun RatingChipPreview() {
 private fun RatingChipDarkPreview() {
     ComposeProductCardsTheme {
         RatingChip(
-            rating = 3.4f,
-            reviewCount = "22",
+            rating = RatingUi(
+                score = 3.4f,
+                reviewCount = "22",
+            ),
             onClick = {}
         )
     }

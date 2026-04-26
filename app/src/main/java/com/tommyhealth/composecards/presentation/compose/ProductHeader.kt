@@ -1,6 +1,8 @@
 package com.tommyhealth.composecards.presentation.compose
 
 import android.content.res.Configuration
+import androidx.compose.foundation.horizontalScroll
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -10,6 +12,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -24,6 +27,7 @@ import coil3.compose.AsyncImage
 import com.tommyhealth.composecards.presentation.BadgeUi
 import com.tommyhealth.composecards.presentation.products
 import com.tommyhealth.composecards.ui.theme.ComposeProductCardsTheme
+import kotlinx.collections.immutable.ImmutableList
 
 private val ImageWidth = 100.dp
 private const val ImageAspectRatio = 0.75f
@@ -32,7 +36,7 @@ private const val ImageAspectRatio = 0.75f
 fun ProductHeader(
     imageUrl: String,
     title: String,
-    badge: BadgeUi?,
+    badges: ImmutableList<BadgeUi>,
     modifier: Modifier = Modifier
 ) {
     Row(
@@ -56,14 +60,18 @@ fun ProductHeader(
                 text = title,
                 color = MaterialTheme.colorScheme.onBackground
             )
-            badge?.let {
+            if (badges.isNotEmpty()) {
                 Spacer(Modifier.weight(1f))
-                HintLabel(
-                    text = it.title,
-                    textColor = it.color,
-                    backgroundColor = it.color.copy(alpha = 0.25f),
-                    modifier = Modifier.padding(bottom = 2.dp),
-                )
+                Row(
+                    horizontalArrangement = Arrangement.spacedBy(6.dp),
+                    modifier = Modifier
+                        .horizontalScroll(rememberScrollState())
+                        .padding(bottom = 2.dp),
+                ) {
+                    badges.forEach { badge ->
+                        HintLabel(badge = badge)
+                    }
+                }
             }
         }
     }
@@ -77,7 +85,7 @@ private fun ProductHeaderPreview() {
         ProductHeader(
             imageUrl = product.imageUrl,
             title = product.title,
-            badge = product.badge,
+            badges = product.badges,
         )
     }
 }
@@ -90,7 +98,7 @@ private fun ProductHeaderWithBadgePreview() {
         ProductHeader(
             imageUrl = product.imageUrl,
             title = product.title,
-            badge = product.badge,
+            badges = product.badges,
         )
     }
 }
@@ -103,7 +111,7 @@ private fun ProductHeaderDarkPreview() {
         ProductHeader(
             imageUrl = product.imageUrl,
             title = product.title,
-            badge = product.badge,
+            badges = product.badges,
         )
     }
 }
